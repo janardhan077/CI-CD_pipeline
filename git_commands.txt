@@ -1,0 +1,7 @@
+git init
+git status 
+git rm --cached
+git add .
+git add
+git commit -m " command u need to show "
+git restore 
