@@ -1,0 +1,1 @@
+print (" hello its time to study devops ")
