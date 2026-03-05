@@ -25,4 +25,4 @@ Viewing Change
 | `git show` | Displays details of a specific commit | `git show <commit-id>` |
  new commint 
 message check bro nothing new 
-
+ now time  1
