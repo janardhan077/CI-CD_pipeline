@@ -52,7 +52,8 @@ git branch
  1749  git add git-commands.md
  1750  git commit -m "using the branch "
  1751  git log
- 1752  git switch master
+ 1752  git switch master 
  1753  ls 
  1754  git log 
  1755  history 
+nothing to  commit :wq
