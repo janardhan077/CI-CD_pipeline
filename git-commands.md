@@ -27,4 +27,32 @@ Viewing Change
 message check bro nothing new 
  now time  1
 now time 2
-mow ytime 3  
+mow ytime 3   
+commnads of day 2 of git 
+git branch 
+ 1730  git checkout b- jana
+ 1731  ls
+ 1732  clear
+ 1733  ls
+ 1734  git checkout -b jana
+ 1735  git branch
+ 1736  git branch -d jana 
+ 1737  git switch master 
+ 1738  git branch -d feature-
+ 1739  git branch -d jana 
+ 1740  ls
+ 1741  clear
+ 1742  git checkout -b feature-1
+ 1743  git checkout -b feature-2
+ 1744  git branch 
+ 1745  git switch feature-1
+ 1746  git branch 
+ 1747  ls
+ 1748  vim git-commands.md
+ 1749  git add git-commands.md
+ 1750  git commit -m "using the branch "
+ 1751  git log
+ 1752  git switch master
+ 1753  ls 
+ 1754  git log 
+ 1755  history 
