@@ -197,11 +197,10 @@ A merge conflict occurs when two branches modify the same line of the same file,
 
 Example conflict markers:
 
-<<<<<<< HEAD
+
 This is code from master
-=======
 This is code from feature branch
->>>>>>> feature-login
+
 
 The developer must manually edit the file and resolve the conflict, then commit again.
 
@@ -217,8 +216,7 @@ Rebase
 
 Fast-Forward Merge
 
-Merge Conflicts
-=======
+Merge Conflic
  Setup & Config
 git config --global user.name "YourName"
 git config --global user.email "your@email.com"
@@ -266,4 +264,4 @@ git reset --mixed HEAD~1
 git reset --hard HEAD~1
 Revert
 git revert <commit-hash>
->>>>>>> fad9545 (chore:updated)
+fad9545 (chore:updated)
