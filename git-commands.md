@@ -23,7 +23,7 @@ Viewing Change
 | `git log` | Displays commit history | `git log` |
 | `git diff` | Shows changes between file versions | `git diff` |
 | `git show` | Displays details of a specific commit | `git show <commit-id>` |
-<<<<<<< HEAD
+
  new commint 
 message check bro nothing new 
  now time  1
