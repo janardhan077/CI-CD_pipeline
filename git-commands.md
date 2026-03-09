@@ -23,6 +23,7 @@ Viewing Change
 | `git log` | Displays commit history | `git log` |
 | `git diff` | Shows changes between file versions | `git diff` |
 | `git show` | Displays details of a specific commit | `git show <commit-id>` |
+<<<<<<< HEAD
  new commint 
 message check bro nothing new 
  now time  1
@@ -217,3 +218,52 @@ Rebase
 Fast-Forward Merge
 
 Merge Conflicts
+=======
+ Setup & Config
+git config --global user.name "YourName"
+git config --global user.email "your@email.com"
+git config --list
+Basic Workflow
+git init
+git status
+git add file.txt
+git add .
+git commit -m "message"
+git log
+git diff
+Branching
+git branch
+git branch new-branch
+git checkout new-branch
+git switch new-branch
+git checkout -b feature
+Remote
+git clone <repo-url>
+git remote -v
+git fetch
+git pull
+git push
+git push origin main
+Fork
+Fork repository from GitHub
+git clone <fork-url>
+git remote add upstream <original-repo-url>
+git fetch upstream
+Merging
+git merge branch-name
+Rebasing
+git rebase main
+Stash
+git stash
+git stash list
+git stash apply
+git stash pop
+Cherry Pick
+git cherry-pick <commit-hash>
+Reset
+git reset --soft HEAD~1
+git reset --mixed HEAD~1
+git reset --hard HEAD~1
+Revert
+git revert <commit-hash>
+>>>>>>> fad9545 (chore:updated)
