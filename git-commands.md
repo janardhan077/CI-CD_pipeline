@@ -215,53 +215,84 @@ Squash Merge
 Rebase
 
 Fast-Forward Merge
+Git Commands Reference
+1. Setup & Configuration
 
-Merge Conflic
- Setup & Config
+Configure your Git identity.
+
 git config --global user.name "YourName"
 git config --global user.email "your@email.com"
 git config --list
-Basic Workflow
-git init
-git status
-git add file.txt
-git add .
-git commit -m "message"
-git log
-git diff
-Branching
-git branch
-git branch new-branch
-git checkout new-branch
-git switch new-branch
-git checkout -b feature
-Remote
-git clone <repo-url>
-git remote -v
-git fetch
-git pull
-git push
-git push origin main
-Fork
+2. Basic Workflow
+
+Common commands used in daily Git work.
+
+git init                     # Initialize a new repository
+git status                   # Check repository status
+git add file.txt             # Add specific file to staging
+git add .                    # Add all files to staging
+git commit -m "message"      # Commit staged changes
+git log                      # View commit history
+git diff                     # Show file differences
+3. Branching
+
+Commands used to create and manage branches.
+
+git branch                   # List branches
+git branch new-branch        # Create a new branch
+git checkout new-branch      # Switch to branch
+git switch new-branch        # Modern way to switch branch
+git checkout -b feature      # Create and switch to new branch
+4. Remote Repository
+
+Commands to work with remote repositories.
+
+git clone <repo-url>         # Clone repository
+git remote -v                # View remote URLs
+git fetch                    # Download changes without merging
+git pull                     # Fetch and merge changes
+git push                     # Push changes to remote
+git push origin main         # Push to specific branch
+5. Fork Workflow
+
+Used when contributing to open-source projects.
+
 Fork repository from GitHub
 git clone <fork-url>
 git remote add upstream <original-repo-url>
 git fetch upstream
-Merging
+6. Merging
+
+Combine changes from another branch.
+
 git merge branch-name
-Rebasing
+7. Rebasing
+
+Reapply commits on top of another base branch.
+
 git rebase main
-Stash
+8. Stash
+
+Temporarily save uncommitted changes.
+
 git stash
 git stash list
 git stash apply
 git stash pop
-Cherry Pick
+9. Cherry Pick
+
+Apply a specific commit from another branch.
+
 git cherry-pick <commit-hash>
-Reset
+10. Reset
+
+Undo commits in different ways.
+
 git reset --soft HEAD~1
 git reset --mixed HEAD~1
 git reset --hard HEAD~1
-Revert
+11. Revert
+
+Create a new commit that undoes a previous commit.
+
 git revert <commit-hash>
-fad9545 (chore:updated)
