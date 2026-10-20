@@ -4,7 +4,7 @@ on:
   workflow_call:
 jobs:
   dokcer_build_push:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps:
       - name : code checkout
         uses: actions/checkout@v4
