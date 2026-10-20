@@ -7,6 +7,7 @@ on:
 jobs:
   dokcer_build_push:
     runs-on: ubuntu-latest
+    environment: docker_sec
     steps:
       - name: code checkout
         uses: actions/checkout@v4
