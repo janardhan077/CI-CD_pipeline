@@ -1,0 +1,209 @@
+version: "3.9"
+
+
+x-common-env: &common-env
+  INON_DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-inon}:${POSTGRES_PASSWORD:-inon_change_me}@db:5432/${POSTGRES_DB:-inon}
+  INON_LEDGER_SERVICE_URL: http://ledger-service:8000
+  INON_LOG_LEVEL: INFO
+
+services:
+  # Standalone Postgres container - the single database every
+  # DB-owning service connects to. Reachable from your machine on
+  # localhost:5432 (psql, DBeaver, pgAdmin, Supabase Studio, etc).
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-inon}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-inon_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-inon}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # One-shot: creates all tables once, so the services don't race to
+  # CREATE TABLE / CREATE TYPE at the same time on Postgres.
+  db-init:
+    build:
+      context: .
+      dockerfile: services/ledger_service/Dockerfile
+    command: ["python", "-c", "from common.database import init_db; init_db()"]
+    environment:
+      <<: *common-env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  ledger-service:
+    build:
+      context: .
+      dockerfile: services/ledger_service/Dockerfile
+    environment:
+      <<: *common-env
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  sales-service:
+    build:
+      context: .
+      dockerfile: services/sales_service/Dockerfile
+    environment:
+      <<: *common-env
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      ledger-service:
+        condition: service_started
+    restart: unless-stopped
+
+  credit-service:
+    build:
+      context: .
+      dockerfile: services/credit_service/Dockerfile
+    environment:
+      <<: *common-env
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      ledger-service:
+        condition: service_started
+    restart: unless-stopped
+
+  expense-service:
+    build:
+      context: .
+      dockerfile: services/expense_service/Dockerfile
+    environment:
+      <<: *common-env
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      ledger-service:
+        condition: service_started
+    restart: unless-stopped
+
+  stock-service:
+    build:
+      context: .
+      dockerfile: services/stock_service/Dockerfile
+    environment:
+      <<: *common-env
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      ledger-service:
+        condition: service_started
+    restart: unless-stopped
+
+  cashbank-service:
+    build:
+      context: .
+      dockerfile: services/cashbank_service/Dockerfile
+    environment:
+      INON_LEDGER_SERVICE_URL: http://ledger-service:8000
+      INON_LOG_LEVEL: INFO
+    depends_on:
+      - ledger-service
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - sales-service
+      - credit-service
+      - expense-service
+      - stock-service
+      - cashbank-service
+      - ledger-service
+      - report-service
+      - assistant-service
+    restart: unless-stopped
+
+  report-service:
+    build:
+      context: .
+      dockerfile: services/report_service/Dockerfile
+    environment:
+      INON_LEDGER_SERVICE_URL: http://ledger-service:8000
+      INON_SALES_SERVICE_URL: http://sales-service:8000
+      INON_CREDIT_SERVICE_URL: http://credit-service:8000
+      INON_EXPENSE_SERVICE_URL: http://expense-service:8000
+      INON_STOCK_SERVICE_URL: http://stock-service:8000
+      INON_LOG_LEVEL: INFO
+    depends_on:
+      - ledger-service
+      - sales-service
+      - credit-service
+      - expense-service
+      - stock-service
+    restart: unless-stopped
+
+  assistant-service:
+    build:
+      context: .
+      dockerfile: services/assistant_service/Dockerfile
+    environment:
+      INON_LEDGER_SERVICE_URL: http://ledger-service:8000
+      INON_SALES_SERVICE_URL: http://sales-service:8000
+      INON_CREDIT_SERVICE_URL: http://credit-service:8000
+      INON_EXPENSE_SERVICE_URL: http://expense-service:8000
+      INON_STOCK_SERVICE_URL: http://stock-service:8000
+      INON_REPORT_SERVICE_URL: http://report-service:8000
+      INON_OLLAMA_BASE_URL: http://ollama:11434
+      INON_OLLAMA_MODEL: gemma3
+      INON_LOG_LEVEL: INFO
+    depends_on:
+      - ledger-service
+      - sales-service
+      - credit-service
+      - expense-service
+      - stock-service
+      - report-service
+      - ollama
+    restart: unless-stopped
+
+  # Local LLM runtime. First run: pull the model once with
+  #   docker compose exec ollama ollama pull gemma3
+  # (needs internet the first time only; nothing after that.) Data
+  # persists in the `ollama-data` volume so you don't re-pull on every
+  # `docker compose up`.
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    # Uncomment to use a GPU (requires the NVIDIA container toolkit):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+volumes:
+  db-data:
+  ollama-data:

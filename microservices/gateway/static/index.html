@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IN-ON — Business Ledger</title>
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<div id="app">
+  <button id="nav-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <nav id="sidebar">
+    <div class="brand">IN-ON<small>Onion Business Ledger</small></div>
+    <div class="nav-tab active" data-page="dashboard"><span class="ico">◆</span> Dashboard</div>
+    <div class="nav-tab" data-page="sales"><span class="ico">₹</span> Sales</div>
+    <div class="nav-tab" data-page="expenses"><span class="ico">−</span> Expenses</div>
+    <div class="nav-tab" data-page="customers"><span class="ico">☺</span> Customers &amp; Credit</div>
+    <div class="nav-tab" data-page="stock"><span class="ico">▤</span> Stock</div>
+    <div class="nav-tab" data-page="cashbank"><span class="ico">$</span> Cash &amp; Bank</div>
+    <div class="nav-tab" data-page="reports"><span class="ico">▦</span> Reports</div>
+    <div class="nav-tab" data-page="excel"><span class="ico">⇄</span> Excel</div>
+    <div class="nav-tab" data-page="assistant"><span class="ico">✦</span> Assistant<span id="assistant-badge" class="badge" hidden>●</span></div>
+    <div class="sidebar-foot">
+      <div id="sync-indicator" class="sync-indicator" title="Data freshness">
+        <span class="sync-dot"></span><span id="sync-label">Live</span>
+      </div>
+    </div>
+  </nav>
+
+  <div id="scrim"></div>
+
+  <main id="main">
+    <header id="topbar">
+      <div id="ticker" class="ticker">
+        <div class="ticker-item"><span class="ticker-label">Cash</span><span class="ticker-value" id="tk-cash">—</span></div>
+        <div class="ticker-item"><span class="ticker-label">Bank</span><span class="ticker-value" id="tk-bank">—</span></div>
+        <div class="ticker-item"><span class="ticker-label">Stock</span><span class="ticker-value" id="tk-stock">—</span></div>
+        <div class="ticker-item"><span class="ticker-label">Credit Out</span><span class="ticker-value" id="tk-credit">—</span></div>
+        <div class="ticker-refreshed" id="tk-refreshed"></div>
+      </div>
+    </header>
+    <div id="toast-stack"></div>
+    <div id="page-content"></div>
+  </main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
