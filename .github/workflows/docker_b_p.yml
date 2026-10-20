@@ -29,7 +29,7 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/assistant_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/assistant_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the cashbank_service
+      - name: Build & Push to Docker Hubthe cashbank_service
         uses: docker/build-push-action@v6
         with:
           context: ./microservices/services/cashbank_service
