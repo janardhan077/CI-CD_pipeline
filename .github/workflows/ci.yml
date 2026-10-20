@@ -1,0 +1,31 @@
+
+name: ci/cd 
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  
+  secrets-scan:
+        uses: ./.github/workflows/secrets-scan.yml
+        secrets: inherit
+  
+  docker-scan:
+        uses: ./.github/workflows/doc_lint.yml
+  
+  build:
+    needs: [ secrets-scan, docker-scan ]
+    uses: ./.github/workflows/dicker_b_p.yml
+    secrets: inherit 
+
+  trivy:
+        needs: [build]
+        uses: ./.github/workflows/image-scan.yml
+        secrets: inherit
+  
+  deployment:
+      needs: [trivy]
+      uses: ./.github/workflows/deploy.yml
+      secrets: inherit

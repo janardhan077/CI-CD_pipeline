@@ -1,0 +1,23 @@
+name: Docker Lint
+
+on:
+  workflow_call:
+
+jobs:
+  validate-dockerfiles:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dockerfile:
+        - "bookmyshow-docker (2)/backend/Dockerfile"
+        # - "bookmyshow-docker (2)/frontend/Dockerfile"
+        # - "bookmyshow-docker (2)/nginx/Dockerfile"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ${{ matrix.dockerfile }}
