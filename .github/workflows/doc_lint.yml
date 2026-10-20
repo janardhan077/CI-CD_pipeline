@@ -10,9 +10,15 @@ jobs:
     strategy:
       matrix:
         dockerfile:
-        - "bookmyshow-docker (2)/backend/Dockerfile"
-        # - "bookmyshow-docker (2)/frontend/Dockerfile"
-        # - "bookmyshow-docker (2)/nginx/Dockerfile"
+        - "microservices/services/assistant_service/Dockerfile"
+        - "microservices/services/cashbank_service/Dockerfile"
+        - "microservices/services/credit_service/Dockerfile"
+        - "microservices/services/expense_service/Dockerfile"
+        - "microservices/services/ledger_service/Dockerfile"
+        - "microservices/services/report_service/Dockerfile"
+        - "microservices/services/sales_service/Dockerfile"
+        - "microservices/services/stock_service/Dockerfile"
+        - "microservices/gateway/Dockerfile"
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
