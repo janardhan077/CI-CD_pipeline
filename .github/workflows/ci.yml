@@ -1,5 +1,5 @@
 
-name: ci-cd
+name: ci
 
 on:
   push:
@@ -20,12 +20,12 @@ jobs:
     uses: ./.github/workflows/dicker_b_p.yml
     secrets: inherit 
 
-  trivy:
-        needs: [build]
-        uses: ./.github/workflows/image-scan.yml
-        secrets: inherit
+  # trivy:
+  #       needs: [build]
+  #       uses: ./.github/workflows/image-scan.yml
+  #       secrets: inherit
   
-  deployment:
-      needs: [trivy]
-      uses: ./.github/workflows/deploy.yml
-      secrets: inherit
+  # deployment:
+  #     needs: [trivy]
+  #     uses: ./.github/workflows/deploy.yml
+  #     secrets: inherit
