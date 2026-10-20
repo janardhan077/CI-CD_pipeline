@@ -5,23 +5,24 @@ on:
   workflow_call:
 
 jobs:
-  dokcer_build_push:
+  docker_build_push:
     runs-on: ubuntu-latest
     environment: docker_sec
+
     steps:
-      - name: code checkout
+      - name: Code checkout
         uses: actions/checkout@v4
 
-      - name: docker login
+      - name: Docker login
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_NAME }}
           password: ${{ secrets.DOCKERHUB_PAT }}
 
-      - name: Build & Push to Docker Hub the assistant_service
+      - name: Build & Push assistant_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/assistant_service
+          context: ./microservices
           file: ./microservices/services/assistant_service/Dockerfile
           push: true
           tags: |
@@ -29,10 +30,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/assistant_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/assistant_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hubthe cashbank_service
+      - name: Build & Push cashbank_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/cashbank_service
+          context: ./microservices
           file: ./microservices/services/cashbank_service/Dockerfile
           push: true
           tags: |
@@ -40,10 +41,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/cashbank_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/cashbank_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the credit_service
+      - name: Build & Push credit_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/credit_service
+          context: ./microservices
           file: ./microservices/services/credit_service/Dockerfile
           push: true
           tags: |
@@ -51,10 +52,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/credit_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/credit_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the expense_service
+      - name: Build & Push expense_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/expense_service
+          context: ./microservices
           file: ./microservices/services/expense_service/Dockerfile
           push: true
           tags: |
@@ -62,10 +63,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/expense_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/expense_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the ledger_service
+      - name: Build & Push ledger_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/ledger_service
+          context: ./microservices
           file: ./microservices/services/ledger_service/Dockerfile
           push: true
           tags: |
@@ -73,10 +74,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/ledger_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/ledger_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the report_service
+      - name: Build & Push report_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/report_service
+          context: ./microservices
           file: ./microservices/services/report_service/Dockerfile
           push: true
           tags: |
@@ -84,10 +85,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/report_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/report_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the sales_service
+      - name: Build & Push sales_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/sales_service
+          context: ./microservices
           file: ./microservices/services/sales_service/Dockerfile
           push: true
           tags: |
@@ -95,10 +96,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/sales_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/sales_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the stock_service
+      - name: Build & Push stock_service
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/services/stock_service
+          context: ./microservices
           file: ./microservices/services/stock_service/Dockerfile
           push: true
           tags: |
@@ -106,10 +107,10 @@ jobs:
             ${{ secrets.DOCKERHUB_NAME }}/stock_service:latest
             ${{ secrets.DOCKERHUB_NAME }}/stock_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the gateway
+      - name: Build & Push gateway
         uses: docker/build-push-action@v6
         with:
-          context: ./microservices/gateway
+          context: ./microservices
           file: ./microservices/gateway/Dockerfile
           push: true
           tags: |
