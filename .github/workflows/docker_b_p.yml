@@ -1,117 +1,117 @@
-name: docker publish 
+
+name: docker publish
 
 on:
   workflow_call:
+
 jobs:
   dokcer_build_push:
     runs-on: ubuntu-latest
     steps:
-      - name : code checkout
+      - name: code checkout
         uses: actions/checkout@v4
 
-      - name : docker login 
+      - name: docker login
         uses: docker/login-action@v3
         with:
-              Username: ${{ secrets.DOCKERHUB_NAME }}
-              password: ${{ secrets.DOCKERHUB_PAT}}
+          username: ${{ secrets.DOCKERHUB_NAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
 
       - name: Build & Push to Docker Hub the assistant_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/assistant_service
-            file: ./microservices/services/assistant_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/assistant_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/assistant_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/assistant_service:${{ github.sha }}
+          context: ./microservices/services/assistant_service
+          file: ./microservices/services/assistant_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/assistant_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/assistant_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/assistant_service:${{ github.sha }}
 
       - name: Build & Push to Docker Hub the cashbank_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/cashbank_service
-            file: ./microservices/services/cashbank_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/cashbank_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/cashbank_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/cashbank_service:${{ github.sha }}        
+          context: ./microservices/services/cashbank_service
+          file: ./microservices/services/cashbank_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/cashbank_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/cashbank_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/cashbank_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the credit_service 
+      - name: Build & Push to Docker Hub the credit_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/credit_service
-            file: ./microservices/services/credit_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/credit_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/credit_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/credit_service:${{ github.sha }}   
+          context: ./microservices/services/credit_service
+          file: ./microservices/services/credit_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/credit_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/credit_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/credit_service:${{ github.sha }}
 
       - name: Build & Push to Docker Hub the expense_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/expense_service
-            file: ./microservices/services/expense_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/expense_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/expense_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/expense_service:${{ github.sha }}                      
+          context: ./microservices/services/expense_service
+          file: ./microservices/services/expense_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/expense_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/expense_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/expense_service:${{ github.sha }}
 
-      - name: Build & Push to Docker Hub the ledger_service 
+      - name: Build & Push to Docker Hub the ledger_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/ledger_service
-            file: ./microservices/services/ledger_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/ledger_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/ledger_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/ledger_service:${{ github.sha }} 
-
+          context: ./microservices/services/ledger_service
+          file: ./microservices/services/ledger_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/ledger_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/ledger_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/ledger_service:${{ github.sha }}
 
       - name: Build & Push to Docker Hub the report_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/report_service 
-            file: ./microservices/services/report_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/report_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/report_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/report_service:${{ github.sha }} 
+          context: ./microservices/services/report_service
+          file: ./microservices/services/report_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/report_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/report_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/report_service:${{ github.sha }}
 
       - name: Build & Push to Docker Hub the sales_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/sales_service 
-            file: ./microservices/services/sales_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/sales_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/sales_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/sales_service:${{ github.sha }} 
+          context: ./microservices/services/sales_service
+          file: ./microservices/services/sales_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/sales_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/sales_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/sales_service:${{ github.sha }}
 
       - name: Build & Push to Docker Hub the stock_service
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/services/stock_service
-            file: ./microservices/services/stock_service/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/stock_service:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/stock_service:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/stock_service:${{ github.sha }} 
-      
+          context: ./microservices/services/stock_service
+          file: ./microservices/services/stock_service/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/stock_service:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/stock_service:latest
+            ${{ secrets.DOCKERHUB_NAME }}/stock_service:${{ github.sha }}
+
       - name: Build & Push to Docker Hub the gateway
         uses: docker/build-push-action@v6
         with:
-            context: ./microservices/gateway
-            file: ./microservices/gateway/Dockerfile
-            push: true
-            tags: |
-              ${{ secrets.DOCKERHUB_USERNAME }}/gateway:${{ github.ref_name }}
-              ${{ secrets.DOCKERHUB_USERNAME }}/gateway:latest
-              ${{ secrets.DOCKERHUB_USERNAME }}/gateway:${{ github.sha }} 
-              
+          context: ./microservices/gateway
+          file: ./microservices/gateway/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_NAME }}/gateway:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_NAME }}/gateway:latest
+            ${{ secrets.DOCKERHUB_NAME }}/gateway:${{ github.sha }}
