@@ -17,7 +17,7 @@ jobs:
   
   build:
     needs: [ secrets-scan, docker-scan ]
-    uses: ./.github/workflows/dicker_b_p.yml
+    uses: ./.github/workflows/docker_b_p.yml
     secrets: inherit 
 
   # trivy:
