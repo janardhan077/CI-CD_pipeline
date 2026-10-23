@@ -5,6 +5,7 @@ on:
 jobs:
   image_scan:
    runs-on: ubuntu-latest
+   environment: docker_sec
    strategy:
     matrix:
       image: 
