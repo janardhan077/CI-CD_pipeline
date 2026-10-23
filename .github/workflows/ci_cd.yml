@@ -1,5 +1,5 @@
 
-name: ci
+name: ci-cd
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
          uses: ./.github/workflows/image-scan.yml
          secrets: inherit
   
-  # deployment:
-  #     needs: [trivy]
-  #     uses: ./.github/workflows/deploy.yml
-  #     secrets: inherit
+  INFRASTRUCTURE :
+        needs: [trivy]
+        uses: ./.github/workflows/infra.yml
+        secrets: inherit
