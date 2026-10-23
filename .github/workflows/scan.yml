@@ -1,0 +1,38 @@
+name: images scan
+on: 
+  workflow_call:
+
+jobs:
+  image_scan:
+   runs-on: ubuntu-latest
+   strategy:
+    matrix:
+      image: 
+      - assistant_service
+      - cashbank_service 
+      - credit_service 
+      - expense_service 
+      - ledger_service 
+      - report_service 
+      - sales_service 
+      - stock_service
+      - gateway
+
+   steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_NAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
+
+      - name: Scan Docker Image
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}:${{ github.sha }}
+          severity: 'CRITICAL '
+          exit-code: '1'
+          trivyignore: .trivyignore
+
