@@ -17,7 +17,7 @@ jobs:
       - report_service 
       - sales_service 
       - stock_service
-      - gateway
+      # - gateway
 
    steps:
       - name: Checkout Code
