@@ -20,10 +20,10 @@ jobs:
     uses: ./.github/workflows/docker_b_p.yml
     secrets: inherit 
 
-  # trivy:
-  #       needs: [build]
-  #       uses: ./.github/workflows/image-scan.yml
-  #       secrets: inherit
+  trivy:
+         needs: [build]
+         uses: ./.github/workflows/image-scan.yml
+         secrets: inherit
   
   # deployment:
   #     needs: [trivy]
