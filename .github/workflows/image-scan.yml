@@ -32,7 +32,7 @@ jobs:
       - name: Scan Docker Image
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}:${{ github.sha }}
+          image-ref: ${{ secrets.DOCKERHUB_NAME }}/${{ matrix.image }}:${{ github.sha }}
           severity: 'CRITICAL '
           exit-code: '1'
           trivyignore: .trivyignore
