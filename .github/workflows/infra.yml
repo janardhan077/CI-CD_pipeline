@@ -1,0 +1,19 @@
+name: infra_traform 
+
+on :
+  workflow_call
+
+jobs:
+  infra:
+    runs-on: ubuntu-latest
+    environment: docker_sec
+
+    steps:
+      - name: build the infra using the thje terra script 
+        uses: actions/checkout@v4
+        with: 
+          context: ./Terraform_scripts
+          
+
+
+
